@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="toolBar">
+            <div class="colorChoice">
+                <button id="colorChoice" class="colorButton">Color Pallete</button>
+                <ul class="hide colorChoiceList">
+                    <li class="colorChoiceListItem yellow" id='yellow' style="background:#FCBA04"></li>
+                    <li class="colorChoiceListItem red" id='red' style="background:#A50104"></li>
+                    <li class="colorChoiceListItem rosewood" id='rosewood' style="background:#590004"></li>
+                    <li class="colorChoiceListItem blackBean" id='blackBean' style="background:#250001"></li>
+                    <li class="colorChoiceListItem whiteSmoke" id='whiteSmoke' style="background:#F3F3F3"></li>
+                </ul>
+            </div>
+            <!-- <button></button>
+            <button></button>
+            <button></button> -->
+        </div>
+        <div class="canvas">
+            <!-- 3d object -->
+            <!-- three js; https://medium.com/@samuel.lawrence.cohen/how-to-create-a-color-customizer-in-threejs-e48ac1a4b4df -->
+            <canvas class="webgl"></canvas>
+        </div>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

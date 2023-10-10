@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hoodie
+* source:	https://sketchfab.com/3d-models/hoodie-2c674228f1e946b5b8f508f8f818e130
+* author:	yogaminggames (https://sketchfab.com/yogaminggames)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hoodie" (https://sketchfab.com/3d-models/hoodie-2c674228f1e946b5b8f508f8f818e130) by yogaminggames (https://sketchfab.com/yogaminggames) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
