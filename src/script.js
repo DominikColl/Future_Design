@@ -40,22 +40,40 @@ const textureOffset = { x: 1.025, y: 1.025 };
           item.material.map.offset.set(textureOffset.x, textureOffset.y);
         });
       }
-function loadTextureAndApply() {
+      
+
+function removeHalfOfArray(arr) {
+  // Calculate the index at which to start removing elements
+  const startIndex = Math.ceil(arr.length / 2);
+  
+  // Remove elements from startIndex to the end of the array
+  arr.splice(startIndex);
+
+  return arr;}
+  function loadTextureAndApply() {
     const textureLoader = new THREE.TextureLoader();
     textureLoader.load('/models/apollo.png', (loadedTexture) => {
         // Ensure texture doesn't repeat
         loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
         loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
-        //  will need to be custom for the user to edit; will need a interface
-        const textureScale = new THREE.Vector2(5, 5); // Set the texture scale
-        const textureOffset = new THREE.Vector2(.536,.536); // Set the texture offset
+        
+        const textureScale = new THREE.Vector2(5, 5); // Set the texture scale (make it smaller)
+        const textureOffset = new THREE.Vector2(0.536, 0.536); // Set the texture offset
+        // const textureOffset = new THREE.Vector2(1, 1); // Set the texture offset
 
-        model.children[0].children[0].children[0].children[0].children.forEach((item) => {
-            console.log(item)
-            item.material.map = loadedTexture;
-            item.material.map.repeat.copy(textureScale);
-            item.material.map.offset.copy(textureOffset);
-        });
+        let r = model.children[0].children[0].children[0].children[0].children;
+
+        r[0].material.map = loadedTexture;
+       
+        console.log(model)
+        console.log(r[0]);
+
+        // Adjust the repeat property to control how the texture is mapped
+        r[0].material.map.repeat = textureScale;
+
+        // Adjust the offset to control the starting point of the texture
+        r[0].material.map.offset = textureOffset;
+
         scene.add(model);
     }, undefined, (error) => {
         console.error('An error occurred while loading the texture:', error);
@@ -74,17 +92,13 @@ let mixer = null
 let model;
 gltfLoader.setDRACOLoader(dracoLoader);
 
-gltfLoader.load('/models/hoodie/scene.gltf', (gltf) => {
+gltfLoader.load('/models/hoodieVtwo/hoodieVTwo.gltf', (gltf) => {
     model = gltf.scene;
     model.position.y = -0.4;
     model.position.z = 0.4;
     model.rotation.x = -0.23;
     loadTextureAndApply()
-
 });
-
-
-
 
 // Create an object to store the position and rotation data
 const modelData = {
