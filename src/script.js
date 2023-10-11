@@ -21,7 +21,7 @@ document.getElementById("colorChoice").addEventListener('click', () => {
  */
 // Debug
 // const gui = new dat.GUI()
-
+// git 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
