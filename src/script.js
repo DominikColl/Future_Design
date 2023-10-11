@@ -15,6 +15,7 @@ THREE.ColorManagement.enabled = false
 document.getElementById("colorChoice").addEventListener('click', () => {
     document.querySelector(".colorChoiceList").classList.toggle('hide')
 });
+const gui = new dat.GUI();
 
 /**
  * Base
@@ -27,15 +28,33 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+const textureOffset = { x: 1.025, y: 1.025 };
 
+      // Add the texture offset values to the GUI
+      gui.add(textureOffset, 'x', 0, 2).name('Texture Offset X').onChange(updateTextureOffset);
+      gui.add(textureOffset, 'y', 0, 2).name('Texture Offset Y').onChange(updateTextureOffset);
+
+      function updateTextureOffset() {
+        // Update the texture offset for all the materials
+        model.children[0].children[0].children[0].children[0].children.forEach((item) => {
+          item.material.map.offset.set(textureOffset.x, textureOffset.y);
+        });
+      }
 function loadTextureAndApply() {
     const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('/models/Kerbal.png', (loadedTexture) => {
-        loadedTexture.wrapS = THREE.RepeatWrapping;
-        loadedTexture.wrapT = THREE.RepeatWrapping;
+    textureLoader.load('/models/apollo.png', (loadedTexture) => {
+        // Ensure texture doesn't repeat
+        loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
+        loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
+        //  will need to be custom for the user to edit; will need a interface
+        const textureScale = new THREE.Vector2(5, 5); // Set the texture scale
+        const textureOffset = new THREE.Vector2(.536,.536); // Set the texture offset
 
         model.children[0].children[0].children[0].children[0].children.forEach((item) => {
+            console.log(item)
             item.material.map = loadedTexture;
+            item.material.map.repeat.copy(textureScale);
+            item.material.map.offset.copy(textureOffset);
         });
         scene.add(model);
     }, undefined, (error) => {
@@ -50,7 +69,6 @@ dracoLoader.setDecoderPath('/draco/')
 
 const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
-const gui = new dat.GUI();
 
 let mixer = null
 let model;
