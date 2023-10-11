@@ -38,18 +38,105 @@ const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 let mixer = null
+let model;
+gltfLoader.setDRACOLoader(dracoLoader);
 
-gltfLoader.load(
-    '/models/hoodie/scene.gltf',
+gltfLoader.load('/models/hoodie/scene.gltf', (gltf) => {
+    model = gltf.scene;
+    model.position.y = -0.4;
+    model.position.z = 0.4;
+    model.rotation.x = -0.23;
+    scene.add(model);
+
+    // Texture
+    const textureLoader = new THREE.TextureLoader();
+    let texture;
+    textureLoader.load('/models/apollo.png', (loadedTexture) => {
+        texture = loadedTexture;
+        // texture.wrapS = THREE.RepeatWrapping;
+        // texture.wrapT = THREE.RepeatWrapping;
+
+        // Adjust the position and scale of the texture
+        const textureScale = 20;  // You can adjust this value to control the scale of the texture
+        texture.repeat.set(textureScale, textureScale);  // Controls how many times the texture repeats
+
+        // Offset to control the starting position of the texture
+        const textureOffsetX = 1.25;  // Adjust this value to move the texture horizontally
+        const textureOffsetY = 1.5;   // Adjust this value to move the texture vertically
+        // texture.offset.set(textureOffsetX, textureOffsetY);
+        console.log(model.children[0].children[0].children[0].children[0].children)
+        model.children[0].children[0].children[0].children[0].children.forEach((item) =>{
+            item.material.map = texture;
+        })
+    }, undefined, (error) => {
+        console.error('An error occurred while loading the texture:', error);
+    });
+});
+
+
+
+const gui = new dat.GUI();
+
+// Create an object to store the position and rotation data
+const modelData = {
+  positionX: -0.4,
+  positionY: 0.4,
+  positionZ: 0.4,
+  rotationX: -0.23,
+};
+
+let currentModel = null; // Store a reference to the currently loaded model
+
+// Function to load the GLTF model (called once at the beginning)
+function loadGLTFModel() {
+  gltfLoader.load(
+    '/models/patch/scene.gltf',
     (gltf) => {
-        gltf.scene.position.y = -0.4
-        gltf.scene.position.z = 0.4
-        gltf.scene.rotation.x=-.23
-        scene.add(gltf.scene)
+      gltf.scene.scale.set(0.07, 0.07, 0.07);
+      gltf.scene.rotation.x = modelData.rotationX;
+      scene.add(gltf.scene);
+      currentModel = gltf.scene; // Update the reference to the current model
     }
-)
+  );
+}
 
+// Add a button to load the GLTF model
+document.getElementById('graphicButton').addEventListener('click', (e) => {
+  // This button can be used for debugging or repositioning the model if needed
+  loadGLTFModel();
+});
 
+// Create controllers for position and rotation
+const modelFolder = gui.addFolder('Model Settings');
+const positionX = modelFolder.add(modelData, 'positionX', -1, 3).step(0.01).name('X Position');
+const positionY = modelFolder.add(modelData, 'positionY', -1, 3).step(0.01).name('Y Position');
+const positionZ = modelFolder.add(modelData, 'positionZ', -1, 1).step(0.01).name('Z Position');
+const rotationX = modelFolder.add(modelData, 'rotationX', -Math.PI, Math.PI).step(0.01).name('X Rotation');
+
+// Add event listeners to update the model's position when the values change
+positionX.onChange(function (value) {
+  if (currentModel) {
+    currentModel.position.x = value;
+  }
+});
+
+positionY.onChange(function (value) {
+  if (currentModel) {
+    currentModel.position.y = value;
+  }
+});
+
+positionZ.onChange(function (value) {
+  if (currentModel) {
+    currentModel.position.z = value;
+  }
+});
+
+rotationX.onChange(function (value) {
+  if (currentModel) {
+    currentModel.rotation.x = value;
+  }
+});
 /**
  * Lights
  */
@@ -103,6 +190,8 @@ if (document.querySelector(".colorChoiceListItem")) {
         })
     })
 }
+
+
 // 
 /**
  * Sizes
