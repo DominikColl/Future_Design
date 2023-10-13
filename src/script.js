@@ -12,9 +12,7 @@ import {
 
 THREE.ColorManagement.enabled = false
 
-document.getElementById("colorChoice").addEventListener('click', () => {
-    document.querySelector(".colorChoiceList").classList.toggle('hide')
-});
+
 const gui = new dat.GUI();
 
 /**
@@ -121,11 +119,6 @@ function loadGLTFModel() {
     );
 }
 
-// Add a button to load the GLTF model
-document.getElementById('graphicButton').addEventListener('click', (e) => {
-    // This button can be used for debugging or repositioning the model if needed
-    loadGLTFModel();
-});
 
 // Create controllers for position and rotation
 const modelFolder = gui.addFolder('Model Settings');
@@ -181,7 +174,10 @@ directionalLightThree.position.set(2, 2, 0)
 scene.add(directionalLightThree)
 
 
-// 
+// Color choice button
+document.getElementById("colorChoice").addEventListener('click', () => {
+    document.querySelector(".colorChoiceList").classList.toggle('hide')
+});
 if (document.querySelector(".colorChoiceListItem")) {
     let t = document.querySelectorAll(".colorChoiceListItem")
     t.forEach((item) => {
@@ -207,6 +203,35 @@ if (document.querySelector(".colorChoiceListItem")) {
             } else if (target === 'whiteSmoke') {
                 ambientLight.color.setHex(0xF3F3F3)
                 directionalLight.color.setHex(0xF3F3F3)
+            }
+        })
+    })
+}
+// Tools button
+document.getElementById("toolChoice").addEventListener('click', () => {
+    console.log()
+    document.querySelector(".toolList").classList.toggle('hide')
+});
+if (document.querySelector(".toolListItem")) {
+    let t = document.querySelectorAll(".toolListItem")
+    t.forEach((item) => {
+        item.addEventListener("click", (e) => {
+            t.forEach((item) => {
+                item.classList.remove("toolActive")
+            })
+            e.target.classList.add("toolActive")
+            console.log(e.target.id)
+            let target = e.target.id;
+            if (target === 'tool1') {
+
+            } else if (target === 'tool2') {
+
+            } else if (target === 'tool3') {
+
+            } else if (target === 'tool4') {
+
+            } else if (target === 'tool5') {
+
             }
         })
     })
