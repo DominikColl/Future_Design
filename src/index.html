@@ -20,14 +20,22 @@
                     <li class="colorChoiceListItem whiteSmoke" id='whiteSmoke' style="background:#F3F3F3"></li>
                 </ul>
             </div>
+            <!-- postion  -->
             <div class="toolChoice">
-                <button id='toolChoice' class="toolButton">Tools</button>
+                <button id='toolChoice' class="toolButton">Position Tools</button>
                 <ul class="hide toolList">
-                    <li class="toolListItem tool1" id="tool1" style="background:#04AA6D"></li>
-                    <li class="toolListItem tool2" id="tool2" style="background:#2196F3"></li>
-                    <li class="toolListItem tool3" id="tool3" style="background:#ff9800"></li>
-                    <li class="toolListItem tool4" id="tool4" style="background:#f44336"></li>
-                    <li class="toolListItem tool5" id="tool5" style="background:#e7e7e7"></li>
+                    <li class="toolListItem left" id="left" style="background:#04AA6D">Left</li>
+                    <li class="toolListItem right" id="right" style="background:#2196F3">Right</li>
+                    <li class="toolListItem up" id="up" style="background:#ff9800">Up</li>
+                    <li class="toolListItem down" id="down" style="background:#f44336">Down</li>
+                </ul>
+            </div>
+            <!-- size -->
+            <div class="toolChoice">
+                <button id='toolChoice' class="toolButton">Sizing Tools</button>
+                <ul class="hide toolList">
+                    <li class="toolListItem smaller" id="smaller" style="background:#04AA6D">-</li>
+                    <li class="toolListItem larger" id="larger" style="background:#2196F3">+</li>
                 </ul>
             </div>
         </div>
@@ -38,6 +46,8 @@
         </div>
     </div>
     <script type="module" src="script.js"></script>
+    <script type="module" src="main.js"></script>
+
 </body>
 
 </html>

@@ -66,8 +66,20 @@ gltfLoader.setDRACOLoader(dracoLoader)
 let mixer = null
 let model;
 gltfLoader.setDRACOLoader(dracoLoader);
+// 
 
-gltfLoader.load('/models/hoodieVtwo/hoodieVTwo.gltf', (gltf) => {
+// Create an object to hold the model's position
+const modelPosition = {
+    x: 0,
+    y: -0.4,
+    z: 0.7
+  };
+  let layer;
+  // Load the 3D model
+  // Create controls for moving the model's position in dat.gui
+
+// 
+gltfLoader.load('/models/untitled.gltf', (gltf) => {
     model = gltf.scene;
     model.position.y = -0.4;
     model.position.z = 0.4;
@@ -80,26 +92,27 @@ gltfLoader.load('/models/hoodieVtwo/hoodieVTwo.gltf', (gltf) => {
 
         const textureScale = new THREE.Vector2(8, 8);
         const textureOffset = new THREE.Vector2(1.008, -1.034);
-        console.log(model);
+        // console.log(model);
 
         let r = model.children[0].children[0].children[0].children[0].children;
-
+        console.log(r)
         r[0].material.map = loadedTexture;
         r[0].material.map.repeat = textureScale;
         r[0].material.map.offset = textureOffset;
-
-        // Create a deep copy of r[1]'s material
-        r[1].material = r[1].material.clone();
-
-        // Now you can modify r[1]'s material without affecting the others
-        r[1].material.map = null; // Modify r[1]'s material map
-
+        
         scene.add(model);
     }, undefined, (error) => {
         console.error('An error occurred while loading the texture:', error);
     });
 });
+gltfLoader.load('/models/base.gltf', (gltf) => {
+   let Tmodel = gltf.scene;
+    Tmodel.position.y = -0.4;
+    Tmodel.position.z = 0.4;
+    Tmodel.rotation.x = -0.23;
 
+    scene.add(Tmodel)
+});
 // Create an object to store the position and rotation data
 const modelData = {
     positionX: -0.4,

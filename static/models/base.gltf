@@ -1,0 +1,498 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.8.19",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                7
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.001",
+            "translation" : [
+                12.687207221984863,
+                0,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.003",
+            "translation" : [
+                -5.4788665771484375,
+                0,
+                0
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.004",
+            "translation" : [
+                0,
+                -4.517811298370361,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.005",
+            "translation" : [
+                0,
+                9.826290130615234,
+                0
+            ]
+        },
+        {
+            "children" : [
+                0,
+                1,
+                2,
+                3
+            ],
+            "name" : "Hoodie",
+            "scale" : [
+                10,
+                10,
+                10
+            ]
+        },
+        {
+            "children" : [
+                4
+            ],
+            "name" : "RootNode"
+        },
+        {
+            "children" : [
+                5
+            ],
+            "name" : "3e6b850ceb1f451ca3e14011953cfc91.fbx",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "scale" : [
+                0.0010000000474974513,
+                0.0010000000474974513,
+                0.0010000000474974513
+            ]
+        },
+        {
+            "children" : [
+                6
+            ],
+            "name" : "Sketchfab_model",
+            "rotation" : [
+                -0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "FABRIC_3_FRONT_1850",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.1490200012922287,
+                    0.1490200012922287,
+                    0.1490200012922287,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.980837881565094
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2,
+                        "TEXCOORD_1" : 3,
+                        "TEXCOORD_2" : 4
+                    },
+                    "indices" : 5,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.003",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 6,
+                        "NORMAL" : 7,
+                        "TEXCOORD_0" : 8,
+                        "TEXCOORD_1" : 9,
+                        "TEXCOORD_2" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.004",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 12,
+                        "NORMAL" : 13,
+                        "TEXCOORD_0" : 14,
+                        "TEXCOORD_1" : 15,
+                        "TEXCOORD_2" : 16
+                    },
+                    "indices" : 17,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.005",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 18,
+                        "NORMAL" : 19,
+                        "TEXCOORD_0" : 20,
+                        "TEXCOORD_1" : 21,
+                        "TEXCOORD_2" : 22
+                    },
+                    "indices" : 23,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 31025,
+            "max" : [
+                63.84645462036133,
+                159.9077911376953,
+                14.648539543151855
+            ],
+            "min" : [
+                21.82441520690918,
+                109.2666244506836,
+                -12.094976425170898
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 31025,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 31025,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 31025,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 31025,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5123,
+            "count" : 167616,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 31683,
+            "max" : [
+                -23.03586196899414,
+                159.40484619140625,
+                14.470779418945312
+            ],
+            "min" : [
+                -63.86147689819336,
+                109.32695770263672,
+                -11.927682876586914
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5126,
+            "count" : 31683,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 31683,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 31683,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 31683,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 167250,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 60544,
+            "max" : [
+                21.66994857788086,
+                128.8119659423828,
+                21.26729965209961
+            ],
+            "min" : [
+                -22.187122344970703,
+                96.07231140136719,
+                -15.489048957824707
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 60544,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5126,
+            "count" : 60544,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5126,
+            "count" : 60544,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 60544,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 17,
+            "componentType" : 5123,
+            "count" : 323658,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 18,
+            "componentType" : 5126,
+            "count" : 36401,
+            "max" : [
+                22.926084518432617,
+                175.68798828125,
+                10.036168098449707
+            ],
+            "min" : [
+                -24.13818359375,
+                156.4025115966797,
+                -22.68852996826172
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 19,
+            "componentType" : 5126,
+            "count" : 36401,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 20,
+            "componentType" : 5126,
+            "count" : 36401,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 21,
+            "componentType" : 5126,
+            "count" : 36401,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 22,
+            "componentType" : 5126,
+            "count" : 36401,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 23,
+            "componentType" : 5123,
+            "count" : 207582,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 372300,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 372300,
+            "byteOffset" : 372300
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 248200,
+            "byteOffset" : 744600
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 248200,
+            "byteOffset" : 992800
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 248200,
+            "byteOffset" : 1241000
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 335232,
+            "byteOffset" : 1489200
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 380196,
+            "byteOffset" : 1824432
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 380196,
+            "byteOffset" : 2204628
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 253464,
+            "byteOffset" : 2584824
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 253464,
+            "byteOffset" : 2838288
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 253464,
+            "byteOffset" : 3091752
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 334500,
+            "byteOffset" : 3345216
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 726528,
+            "byteOffset" : 3679716
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 726528,
+            "byteOffset" : 4406244
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 484352,
+            "byteOffset" : 5132772
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 484352,
+            "byteOffset" : 5617124
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 484352,
+            "byteOffset" : 6101476
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 647316,
+            "byteOffset" : 6585828
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 436812,
+            "byteOffset" : 7233144
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 436812,
+            "byteOffset" : 7669956
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 291208,
+            "byteOffset" : 8106768
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 291208,
+            "byteOffset" : 8397976
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 291208,
+            "byteOffset" : 8689184
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 415164,
+            "byteOffset" : 8980392
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 9395556,
+            "uri" : "base.bin"
+        }
+    ]
+}

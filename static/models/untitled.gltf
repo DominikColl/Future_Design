@@ -1,0 +1,187 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.8.19",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                4
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.002"
+        },
+        {
+            "children" : [
+                0
+            ],
+            "name" : "Hoodie",
+            "scale" : [
+                10,
+                10,
+                10
+            ]
+        },
+        {
+            "children" : [
+                1
+            ],
+            "name" : "RootNode"
+        },
+        {
+            "children" : [
+                2
+            ],
+            "name" : "3e6b850ceb1f451ca3e14011953cfc91.fbx",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "scale" : [
+                0.0010000000474974513,
+                0.0010000000474974513,
+                0.0010000000474974513
+            ]
+        },
+        {
+            "children" : [
+                3
+            ],
+            "name" : "Sketchfab_model",
+            "rotation" : [
+                -0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "FABRIC_3_FRONT_1850",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.1490200012922287,
+                    0.1490200012922287,
+                    0.1490200012922287,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.980837881565094
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Hoodie_FABRIC 3_FRONT_1850_0.002",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2,
+                        "TEXCOORD_1" : 3,
+                        "TEXCOORD_2" : 4
+                    },
+                    "indices" : 5,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 48417,
+            "max" : [
+                23.447660446166992,
+                160.8252410888672,
+                17.731630325317383
+            ],
+            "min" : [
+                -25.017133712768555,
+                119.49806213378906,
+                -22.811660766601562
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 48417,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 48417,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 48417,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 48417,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5123,
+            "count" : 260712,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 581004,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 581004,
+            "byteOffset" : 581004
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 387336,
+            "byteOffset" : 1162008
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 387336,
+            "byteOffset" : 1549344
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 387336,
+            "byteOffset" : 1936680
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 521424,
+            "byteOffset" : 2324016
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 2845440,
+            "uri" : "untitled.bin"
+        }
+    ]
+}
