@@ -28,57 +28,34 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
-const textureOffset = { x: 1.025, y: 1.025 };
+const textureOffset = {
+    x: 1.025,
+    y: 1.025
+};
 
-      // Add the texture offset values to the GUI
-      gui.add(textureOffset, 'x', 0, 2).name('Texture Offset X').onChange(updateTextureOffset);
-      gui.add(textureOffset, 'y', 0, 2).name('Texture Offset Y').onChange(updateTextureOffset);
+// Add the texture offset values to the GUI
+gui.add(textureOffset, 'x', 0, 8).name('Texture Offset X').onChange(updateTextureOffset);
+gui.add(textureOffset, 'y', -20, 2).name('Texture Offset Y').onChange(updateTextureOffset);
 
-      function updateTextureOffset() {
-        // Update the texture offset for all the materials
-        model.children[0].children[0].children[0].children[0].children.forEach((item) => {
-          item.material.map.offset.set(textureOffset.x, textureOffset.y);
-        });
-      }
-      
-
-function removeHalfOfArray(arr) {
-  // Calculate the index at which to start removing elements
-  const startIndex = Math.ceil(arr.length / 2);
-  
-  // Remove elements from startIndex to the end of the array
-  arr.splice(startIndex);
-
-  return arr;}
-  function loadTextureAndApply() {
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('/models/apollo.png', (loadedTexture) => {
-        // Ensure texture doesn't repeat
-        loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
-        loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
-        
-        const textureScale = new THREE.Vector2(5, 5); // Set the texture scale (make it smaller)
-        const textureOffset = new THREE.Vector2(0.536, 0.536); // Set the texture offset
-        // const textureOffset = new THREE.Vector2(1, 1); // Set the texture offset
-
-        let r = model.children[0].children[0].children[0].children[0].children;
-
-        r[0].material.map = loadedTexture;
-       
-        console.log(model)
-        console.log(r[0]);
-
-        // Adjust the repeat property to control how the texture is mapped
-        r[0].material.map.repeat = textureScale;
-
-        // Adjust the offset to control the starting point of the texture
-        r[0].material.map.offset = textureOffset;
-
-        scene.add(model);
-    }, undefined, (error) => {
-        console.error('An error occurred while loading the texture:', error);
+function updateTextureOffset() {
+    // Update the texture offset for all the materials
+    model.children[0].children[0].children[0].children[0].children.forEach((item) => {
+        item.material.map.offset.set(textureOffset.x, textureOffset.y);
     });
 }
+
+
+function removeHalfOfArray(arr) {
+    // Calculate the index at which to start removing elements
+    const startIndex = Math.ceil(arr.length / 2);
+
+    // Remove elements from startIndex to the end of the array
+    arr.splice(startIndex);
+
+    return arr;
+}
+
+
 /**
  * Models
  */
@@ -97,7 +74,28 @@ gltfLoader.load('/models/hoodieVtwo/hoodieVTwo.gltf', (gltf) => {
     model.position.y = -0.4;
     model.position.z = 0.4;
     model.rotation.x = -0.23;
-    loadTextureAndApply()
+    // loadTextureAndApply(model)
+    const textureLoader = new THREE.TextureLoader();
+textureLoader.load('/models/apollo.png', (loadedTexture) => {
+    loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
+    loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
+
+    const textureScale = new THREE.Vector2(8, 8);
+    const textureOffset = new THREE.Vector2(1.008, -1.034);
+    console.log(model)
+    let r = model.children[0].children[0].children[0].children[0].children;
+
+    r[0].material.map = loadedTexture;
+    r[0].material.map.repeat = textureScale;
+    r[0].material.map.offset = textureOffset;
+
+    // Create a new material instance for r[2]
+    r[2].material = new THREE.MeshBasicMaterial({ map: null });
+
+    scene.add(model);
+}, undefined, (error) => {
+    console.error('An error occurred while loading the texture:', error);
+});
 });
 
 // Create an object to store the position and rotation data
