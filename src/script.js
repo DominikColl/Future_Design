@@ -72,28 +72,32 @@ gltfLoader.load('/models/hoodieVtwo/hoodieVTwo.gltf', (gltf) => {
     model.position.y = -0.4;
     model.position.z = 0.4;
     model.rotation.x = -0.23;
-    // loadTextureAndApply(model)
+
     const textureLoader = new THREE.TextureLoader();
-textureLoader.load('/models/apollo.png', (loadedTexture) => {
-    loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
-    loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
+    textureLoader.load('/models/apollo.png', (loadedTexture) => {
+        loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
+        loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
 
-    const textureScale = new THREE.Vector2(8, 8);
-    const textureOffset = new THREE.Vector2(1.008, -1.034);
-    console.log(model)
-    let r = model.children[0].children[0].children[0].children[0].children;
+        const textureScale = new THREE.Vector2(8, 8);
+        const textureOffset = new THREE.Vector2(1.008, -1.034);
+        console.log(model);
 
-    r[0].material.map = loadedTexture;
-    r[0].material.map.repeat = textureScale;
-    r[0].material.map.offset = textureOffset;
+        let r = model.children[0].children[0].children[0].children[0].children;
 
-    // Create a new material instance for r[2]
-    r[2].material = new THREE.MeshBasicMaterial({ map: null });
+        r[0].material.map = loadedTexture;
+        r[0].material.map.repeat = textureScale;
+        r[0].material.map.offset = textureOffset;
 
-    scene.add(model);
-}, undefined, (error) => {
-    console.error('An error occurred while loading the texture:', error);
-});
+        // Create a deep copy of r[1]'s material
+        r[1].material = r[1].material.clone();
+
+        // Now you can modify r[1]'s material without affecting the others
+        r[1].material.map = null; // Modify r[1]'s material map
+
+        scene.add(model);
+    }, undefined, (error) => {
+        console.error('An error occurred while loading the texture:', error);
+    });
 });
 
 // Create an object to store the position and rotation data
