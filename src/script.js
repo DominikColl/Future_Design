@@ -1,3 +1,4 @@
+// Tool selection for arms is needed.
 import * as THREE from 'three'
 import {
     OrbitControls
@@ -60,7 +61,24 @@ const modelPosition = {
   let layer;
   // Load the 3D model
   // Create controls for moving the model's position in dat.gui
+function moveScale() {
+    document.querySelectorAll(".scaleTool").forEach(item => {
+        item.addEventListener("click", (e) => {
+            console.log(model.children[0].children[0].children[0].children[0].children[0].material.map.repeat);
+            if(e.target.id == "plusWidth") {
+                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x++
+                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y++
+            } else if (e.target.id == "minusWidth") {
+                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y--
+                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x--
+            } else if (e.target.id == "plusHeight") {
 
+            } else if (e.target.id == "minusHeight") {
+
+            }
+        })
+    })
+}
 // 
 gltfLoader.load('/models/untitled.gltf', (gltf) => {
     model = gltf.scene;
@@ -82,7 +100,12 @@ gltfLoader.load('/models/untitled.gltf', (gltf) => {
         r[0].material.map = loadedTexture;
         r[0].material.map.repeat = textureScale;
         r[0].material.map.offset = textureOffset;
-        
+        // 
+        let textureHeight = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalHeight;
+        let textureWidth = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalWidth;
+        // document.getElementById("logoHeight").innerHTML = `${textureHeight / 8}px`;
+        document.getElementById("logoWidth").innerHTML = `${textureWidth / 8}px`;
+        moveScale();
         scene.add(model);
     }, undefined, (error) => {
         console.error('An error occurred while loading the texture:', error);
@@ -179,15 +202,23 @@ if (document.querySelector(".toolListItem")) {
             e.target.classList.add("toolActive")
             console.log(e.target.id)
             let target = e.target.id;
-            if (target === 'tool1') {
-
-            } else if (target === 'tool2') {
-
-            } else if (target === 'tool3') {
-
-            } else if (target === 'tool4') {
-
-            } else if (target === 'tool5') {
+            if (target === 'left') {
+                console.log(model);
+               let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
+               textureX += .1;
+               model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
+            } else if (target === 'right') {
+                let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
+                textureX -= .1;
+                model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
+            } else if (target === 'up') {
+                let textureY = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.y;
+                textureY -= .1;
+                model.children[0].children[0].children[0].children[0].children[0].material.map.offset.y = textureY;
+            } else if (target === 'down') {
+                let textureY = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.y;
+                textureY += .1;
+                model.children[0].children[0].children[0].children[0].children[0].material.map.offset.y = textureY;
 
             }
         })
