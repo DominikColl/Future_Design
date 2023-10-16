@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,24 +27,24 @@
             <div class="toolChoice">
                 <button id='logoChoice' class="toolButton">Logo</button>
                 <div class="hide logoDiv">
-                    <input type="file"/>
+                    <input id="logoImg" type="file"/>
                 </div>
             </div>
             <!-- postion  -->
             <div class="toolChoice">
                 <button id='toolChoice' class="toolButton">Position Tools</button>
                 <ul class="hide toolList">
-                    <li class="toolListItem left" id="left">Left</li>
-                    <li class="toolListItem right" id="right">Right</li>
-                    <li class="toolListItem up" id="up">Up</li>
-                    <li class="toolListItem down" id="down">Down</li>
+                    <li class="toolListItem material-icons left" id="left">keyboard_arrow_left</li>
+                    <li class="toolListItem material-icons right" id="right">keyboard_arrow_right</li>
+                    <li class="toolListItem material-icons up" id="up">keyboard_arrow_upward</li>
+                    <li class="toolListItem material-icons down" id="down">keyboard_arrow_downward</li>
                 </ul>
             </div>
             <!-- size -->
             <div class="toolChoice">
-                <button id='sizeChoice' class="toolButton">Sizing Tools</button>
+                <button id='sizeChoice' class="sizeButton">Sizing Tools</button>
                 <ul class="hide sizeChoiceList">
-                    <li>Current Width: <span id="logoWidth">NA</span><button id='plusWidth' class="scaleTool">+</button><button id='minusWidth' class="scaleTool">-</button></li>
+                    <li>Current Width: <span id="logoWidth">NA </span><button id='plusWidth' class="scaleTool">+</button> <button id='minusWidth' class="scaleTool">-</button></li>
                     <!-- <li>Current Height: <span id="logoHeight">NA</span><button id='plusHeight' class="scaleTool">+</button><button id='minusHeight' class="scaleTool">-</button></li> -->
 
                 </ul>

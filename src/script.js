@@ -66,11 +66,11 @@ function moveScale() {
         item.addEventListener("click", (e) => {
             console.log(model.children[0].children[0].children[0].children[0].children[0].material.map.repeat);
             if(e.target.id == "plusWidth") {
-                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x++
-                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y++
-            } else if (e.target.id == "minusWidth") {
-                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y--
                 model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x--
+                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y--
+            } else if (e.target.id == "minusWidth") {
+                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y++
+                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x++
             } else if (e.target.id == "plusHeight") {
 
             } else if (e.target.id == "minusHeight") {
@@ -85,31 +85,7 @@ gltfLoader.load('/models/untitled.gltf', (gltf) => {
     model.position.y = -0.4;
     model.position.z = 0.4;
     model.rotation.x = -0.23;
-
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('/models/apollo.png', (loadedTexture) => {
-        loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
-        loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
-
-        const textureScale = new THREE.Vector2(8, 8);
-        const textureOffset = new THREE.Vector2(1.008, -1.034);
-        // console.log(model);
-
-        let r = model.children[0].children[0].children[0].children[0].children;
-        console.log(r)
-        r[0].material.map = loadedTexture;
-        r[0].material.map.repeat = textureScale;
-        r[0].material.map.offset = textureOffset;
-        // 
-        let textureHeight = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalHeight;
-        let textureWidth = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalWidth;
-        // document.getElementById("logoHeight").innerHTML = `${textureHeight / 8}px`;
-        document.getElementById("logoWidth").innerHTML = `${textureWidth / 8}px`;
-        moveScale();
-        scene.add(model);
-    }, undefined, (error) => {
-        console.error('An error occurred while loading the texture:', error);
-    });
+    scene.add(model);
 })
 
 gltfLoader.load('/models/base.gltf', (gltf) => {
@@ -177,6 +153,54 @@ if (document.querySelector(".colorChoiceListItem")) {
         })
     })
 }
+// Logo Upload
+let logoUpload;
+document.getElementById("logoImg").addEventListener('change', (e) => {
+    var files = e.target.files
+    console.log(model);
+    scene.remove(model)
+    let fr = new FileReader();
+    fr.onload = function () {
+        logoUpload = fr.result;
+        // console.log(fr.result)
+        gltfLoader.load('/models/untitled.gltf', (gltf) => {
+            model = gltf.scene;
+            model.position.y = -0.4;
+            model.position.z = 0.4;
+            model.rotation.x = -0.23;
+            // scene.add(model);
+            const textureLoader = new THREE.TextureLoader();
+            textureLoader.load(fr.result, (loadedTexture) => {
+                loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
+                loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
+        
+                const textureScale = new THREE.Vector2(8, 8);
+                const textureOffset = new THREE.Vector2(1.008, -1.034);
+                // console.log(model);
+        
+                let r = model.children[0].children[0].children[0].children[0].children;
+                console.log(r)
+                r[0].material.map = loadedTexture;
+                r[0].material.map.repeat = textureScale;
+                r[0].material.map.offset = textureOffset;
+        
+          
+                // 
+                let textureHeight = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalHeight;
+                let textureWidth = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalWidth;
+                // document.getElementById("logoHeight").innerHTML = `${textureHeight / 8}px`;
+                document.getElementById("logoWidth").innerHTML = `${textureWidth / 8}px`;
+                moveScale();
+                scene.add(model);
+            }, undefined, (error) => {
+                console.error('An error occurred while loading the texture:', error);
+            });
+        })
+   
+    }
+    fr.readAsDataURL(files[0]);
+});
+
 
 // Tools button
 document.getElementById("toolChoice").addEventListener('click', () => {
@@ -200,10 +224,10 @@ if (document.querySelector(".toolListItem")) {
                 item.classList.remove("toolActive")
             })
             e.target.classList.add("toolActive")
-            console.log(e.target.id)
+            // console.log(e.target.id)
             let target = e.target.id;
             if (target === 'left') {
-                console.log(model);
+                // console.log(model);
                let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
                textureX += .1;
                model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
