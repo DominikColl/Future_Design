@@ -15,13 +15,7 @@ THREE.ColorManagement.enabled = false
 
 const gui = new dat.GUI();
 
-/**
- * Base
- */
-// Debug
-// const gui = new dat.GUI()
-// git 
-// Canvas
+
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
@@ -40,17 +34,6 @@ function updateTextureOffset() {
     model.children[0].children[0].children[0].children[0].children.forEach((item) => {
         item.material.map.offset.set(textureOffset.x, textureOffset.y);
     });
-}
-
-
-function removeHalfOfArray(arr) {
-    // Calculate the index at which to start removing elements
-    const startIndex = Math.ceil(arr.length / 2);
-
-    // Remove elements from startIndex to the end of the array
-    arr.splice(startIndex);
-
-    return arr;
 }
 
 
@@ -104,7 +87,8 @@ gltfLoader.load('/models/untitled.gltf', (gltf) => {
     }, undefined, (error) => {
         console.error('An error occurred while loading the texture:', error);
     });
-});
+})
+
 gltfLoader.load('/models/base.gltf', (gltf) => {
    let Tmodel = gltf.scene;
     Tmodel.position.y = -0.4;
@@ -113,61 +97,7 @@ gltfLoader.load('/models/base.gltf', (gltf) => {
 
     scene.add(Tmodel)
 });
-// Create an object to store the position and rotation data
-const modelData = {
-    positionX: -0.4,
-    positionY: 0.4,
-    positionZ: 0.4,
-    rotationX: -0.23,
-};
 
-let currentModel = null; // Store a reference to the currently loaded model
-
-// Function to load the GLTF model (called once at the beginning)
-function loadGLTFModel() {
-    gltfLoader.load(
-        '/models/patch/scene.gltf',
-        (gltf) => {
-            gltf.scene.scale.set(0.07, 0.07, 0.07);
-            gltf.scene.rotation.x = modelData.rotationX;
-            scene.add(gltf.scene);
-            currentModel = gltf.scene; // Update the reference to the current model
-        }
-    );
-}
-
-
-// Create controllers for position and rotation
-const modelFolder = gui.addFolder('Model Settings');
-const positionX = modelFolder.add(modelData, 'positionX', -1, 3).step(0.01).name('X Position');
-const positionY = modelFolder.add(modelData, 'positionY', -1, 3).step(0.01).name('Y Position');
-const positionZ = modelFolder.add(modelData, 'positionZ', -1, 1).step(0.01).name('Z Position');
-const rotationX = modelFolder.add(modelData, 'rotationX', -Math.PI, Math.PI).step(0.01).name('X Rotation');
-
-// Add event listeners to update the model's position when the values change
-positionX.onChange(function (value) {
-    if (currentModel) {
-        currentModel.position.x = value;
-    }
-});
-
-positionY.onChange(function (value) {
-    if (currentModel) {
-        currentModel.position.y = value;
-    }
-});
-
-positionZ.onChange(function (value) {
-    if (currentModel) {
-        currentModel.position.z = value;
-    }
-});
-
-rotationX.onChange(function (value) {
-    if (currentModel) {
-        currentModel.rotation.x = value;
-    }
-});
 /**
  * Lights
  */
@@ -224,10 +154,20 @@ if (document.querySelector(".colorChoiceListItem")) {
         })
     })
 }
+
 // Tools button
 document.getElementById("toolChoice").addEventListener('click', () => {
     console.log()
     document.querySelector(".toolList").classList.toggle('hide')
+});
+document.getElementById("logoChoice").addEventListener('click', () => {
+    console.log()
+    document.querySelector(".logoDiv").classList.toggle('hide')
+});
+
+document.getElementById("sizeChoice").addEventListener('click', () => {
+    console.log()
+    document.querySelector(".sizeChoiceList").classList.toggle('hide')
 });
 if (document.querySelector(".toolListItem")) {
     let t = document.querySelectorAll(".toolListItem")
