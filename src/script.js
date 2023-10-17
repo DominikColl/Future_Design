@@ -189,7 +189,7 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 let textureHeight = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalHeight;
                 let textureWidth = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalWidth;
                 // document.getElementById("logoHeight").innerHTML = `${textureHeight / 8}px`;
-                document.getElementById("logoWidth").innerHTML = `${textureWidth / 8}px`;
+                document.getElementById("logoWidth").innerHTML = `${textureWidth / 8}px `;
                 moveScale();
                 scene.add(model);
             }, undefined, (error) => {

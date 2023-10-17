@@ -32,6 +32,8 @@ body {
 .colorChoiceListItem {
     width: 40px;
     height: 40px;
+    border:2px solid #9c9c9c;
+    border-radius: 50%;
 }
 .colorButton {
     text-align: left;
@@ -84,7 +86,15 @@ body {
     border: 2px solid #000;
     background: transparent;
 }
-
+#logoWidth {
+    padding-right: .5rem;
+}
+.scaleTool {
+    width:26.0px;
+    height: 23.0px;
+    border-radius: 50%;
+    cursor: pointer;
+}
 .canvas {
     background: #f1f3f4;
     flex: 1;
