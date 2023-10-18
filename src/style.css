@@ -111,9 +111,7 @@ canvas {
     border: 2px solid blue;
     padding: 5px
 }
-.toolActive {
-    border: 2px solid black;
-}
+
 .hide {
     display: none;
 }
