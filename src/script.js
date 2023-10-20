@@ -10,6 +10,7 @@ import {
 import {
     DRACOLoader
 } from 'three/examples/jsm/loaders/DRACOLoader.js'
+import mergeImages from 'merge-images';
 
 THREE.ColorManagement.enabled = false
 
@@ -57,15 +58,15 @@ const modelPosition = {
     x: 0,
     y: -0.4,
     z: 0.7
-  };
-  let layer;
-  // Load the 3D model
-  // Create controls for moving the model's position in dat.gui
+};
+let layer;
+// Load the 3D model
+// Create controls for moving the model's position in dat.gui
 function moveScale() {
     document.querySelectorAll(".scaleTool").forEach(item => {
         item.addEventListener("click", (e) => {
             console.log(model.children[0].children[0].children[0].children[0].children[0].material.map.repeat);
-            if(e.target.id == "plusWidth") {
+            if (e.target.id == "plusWidth") {
                 model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x--
                 model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y--
             } else if (e.target.id == "minusWidth") {
@@ -89,7 +90,7 @@ gltfLoader.load('/models/untitled.gltf', (gltf) => {
 })
 
 gltfLoader.load('/models/base.gltf', (gltf) => {
-   let Tmodel = gltf.scene;
+    let Tmodel = gltf.scene;
     Tmodel.position.y = -0.4;
     Tmodel.position.z = 0.4;
     Tmodel.rotation.x = -0.23;
@@ -162,33 +163,36 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
     let fr = new FileReader();
     fr.onload = function () {
         logoUpload = fr.result;
-        // console.log(fr.result)
+        let inputImage=new Image();
+        inputImage.src=fr.result;
+        // fr.result needs be shrunk either by adding it to a image like 166 or somehow doing it
+        inputImage.onload= function () {
+            mergeImages(['/models/whiteBackground.PNG',fr.result])
+            .then(b64 => document.querySelector("#img").src = b64);
+        }
+
         gltfLoader.load('/models/untitled.gltf', (gltf) => {
             model = gltf.scene;
             model.position.y = -0.4;
             model.position.z = 0.4;
             model.rotation.x = -0.23;
-            // scene.add(model);
+            // before loading texture call function to throw white background on image 
             const textureLoader = new THREE.TextureLoader();
             textureLoader.load(fr.result, (loadedTexture) => {
                 loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
                 loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
-        
+
                 const textureScale = new THREE.Vector2(8, 8);
                 const textureOffset = new THREE.Vector2(1.008, -1.034);
-                // console.log(model);
-        
+
                 let r = model.children[0].children[0].children[0].children[0].children;
                 console.log(r)
                 r[0].material.map = loadedTexture;
                 r[0].material.map.repeat = textureScale;
                 r[0].material.map.offset = textureOffset;
-        
-          
-                // 
+
                 let textureHeight = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalHeight;
                 let textureWidth = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalWidth;
-                // document.getElementById("logoHeight").innerHTML = `${textureHeight / 8}px`;
                 document.getElementById("logoWidth").innerHTML = `${textureWidth / 8}px `;
                 moveScale();
                 scene.add(model);
@@ -196,7 +200,7 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 console.error('An error occurred while loading the texture:', error);
             });
         })
-   
+
     }
     fr.readAsDataURL(files[0]);
 });
@@ -228,9 +232,9 @@ if (document.querySelector(".toolListItem")) {
             let target = e.target.id;
             if (target === 'left') {
                 // console.log(model);
-               let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
-               textureX += .1;
-               model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
+                let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
+                textureX += .1;
+                model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
             } else if (target === 'right') {
                 let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
                 textureX -= .1;
