@@ -224,8 +224,8 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 r[0].material.map.offset = textureOffset;
                 let rTwo=r[0].material.clone();
                 console.log(rTwo)
-                // increments of .1
-                rTwo.color.setRGB(0,.1,0);
+                // increments of .1 rgb
+                rTwo.color.setRGB(.02,.02,0);
                 console.log(rTwo)
                 r[0].material=rTwo;
                 // r[0].material.color.copy(new THREE.Color("#FF0000"))
