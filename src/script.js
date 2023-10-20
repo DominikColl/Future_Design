@@ -160,7 +160,6 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
     scene.remove(model);
     let fr = new FileReader();
     fr.onload = function () {
-        let logoUpload = fr.result;
         let inputImage = new Image();
         inputImage.src = fr.result;
 
@@ -187,8 +186,32 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
             const textureLoader = new THREE.TextureLoader();
             const texture = textureLoader.load(resizedImage, () => {
                 // The rest of your code for applying the texture to the 3D model
+
             }, undefined, (error) => {
                 console.error('An error occurred while loading the texture:', error);
+            });
+
+            // Logo Placement buttons appear once user uploads file
+            if (resizedImage) {
+                document.querySelector(".logoPlace").classList.toggle('hide')
+            }
+            document.getElementById("logoPlacementButton").addEventListener('click', () => {
+                console.log()
+                document.querySelector(".logoPlacement").classList.toggle('hide')
+            });
+
+            // Event listeners for each logo placement button
+            document.getElementById("left-sleeve-placement").addEventListener('click', () => {
+                console.log("left")
+            });
+            document.getElementById("right-sleeve-placement").addEventListener('click', () => {
+                console.log("right")
+            });
+            document.getElementById("back-placement").addEventListener('click', () => {
+                console.log("back")
+            });
+            document.getElementById("front-placement").addEventListener('click', () => {
+                console.log("front")
             });
         }
         gltfLoader.load('/models/untitled.gltf', (gltf) => {
@@ -220,11 +243,9 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 console.error('An error occurred while loading the texture:', error);
             });
         })
-
     }
     fr.readAsDataURL(files[0]);
 });
-
 
 // Tools button
 document.getElementById("toolChoice").addEventListener('click', () => {
