@@ -11,9 +11,7 @@ import {
     DRACOLoader
 } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import mergeImages from 'merge-images';
-
 THREE.ColorManagement.enabled = false
-
 
 const gui = new dat.GUI();
 
@@ -157,20 +155,42 @@ if (document.querySelector(".colorChoiceListItem")) {
 // Logo Upload
 let logoUpload;
 document.getElementById("logoImg").addEventListener('change', (e) => {
-    var files = e.target.files
+    var files = e.target.files;
     console.log(model);
-    scene.remove(model)
+    scene.remove(model);
     let fr = new FileReader();
     fr.onload = function () {
-        logoUpload = fr.result;
-        let inputImage=new Image();
-        inputImage.src=fr.result;
-        // fr.result needs be shrunk either by adding it to a image like 166 or somehow doing it
-        inputImage.onload= function () {
-            mergeImages(['/models/whiteBackground.PNG',fr.result])
-            .then(b64 => document.querySelector("#img").src = b64);
-        }
+        let logoUpload = fr.result;
+        let inputImage = new Image();
+        inputImage.src = fr.result;
 
+        inputImage.onload = function () {
+            // Calculate the desired width and height for the input image
+            const desiredWidth = 50; // Set your desired width
+            const desiredHeight = 50; // Set your desired height
+
+            // Resize the input image to the desired dimensions
+            const canvas = document.createElement('canvas');
+            canvas.width = desiredWidth;
+            canvas.height = desiredHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(inputImage, 0, 0, desiredWidth, desiredHeight);
+            const resizedImage = canvas.toDataURL('image/jpeg'); // You can specify the desired image format
+
+            mergeImages([{src:'/models/whiteBackground.PNG',x:0,y:0}, {src:resizedImage,x:25,y:25}], {
+                width: 100,
+                height: 100
+            })
+            .then(b64 => document.querySelector("#img").src = b64);
+
+            // Use the resizedImage for applying to the 3D model
+            const textureLoader = new THREE.TextureLoader();
+            const texture = textureLoader.load(resizedImage, () => {
+                // The rest of your code for applying the texture to the 3D model
+            }, undefined, (error) => {
+                console.error('An error occurred while loading the texture:', error);
+            });
+        }
         gltfLoader.load('/models/untitled.gltf', (gltf) => {
             model = gltf.scene;
             model.position.y = -0.4;
@@ -178,7 +198,7 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
             model.rotation.x = -0.23;
             // before loading texture call function to throw white background on image 
             const textureLoader = new THREE.TextureLoader();
-            textureLoader.load(fr.result, (loadedTexture) => {
+            textureLoader.load(document.querySelector("#img").src, (loadedTexture) => {
                 loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
                 loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
 
