@@ -84,6 +84,7 @@ gltfLoader.load('/models/untitled.gltf', (gltf) => {
     model.position.y = -0.4;
     model.position.z = 0.4;
     model.rotation.x = -0.23;
+
     scene.add(model);
 })
 
@@ -200,19 +201,7 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 document.querySelector(".logoPlacement").classList.toggle('hide')
             });
 
-            // Event listeners for each logo placement button
-            document.getElementById("left-sleeve-placement").addEventListener('click', () => {
-                console.log("left")
-            });
-            document.getElementById("right-sleeve-placement").addEventListener('click', () => {
-                console.log("right")
-            });
-            document.getElementById("back-placement").addEventListener('click', () => {
-                console.log("back")
-            });
-            document.getElementById("front-placement").addEventListener('click', () => {
-                console.log("front")
-            });
+         
         }
         gltfLoader.load('/models/untitled.gltf', (gltf) => {
             model = gltf.scene;
@@ -233,7 +222,13 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 r[0].material.map = loadedTexture;
                 r[0].material.map.repeat = textureScale;
                 r[0].material.map.offset = textureOffset;
-
+                let rTwo=r[0].material.clone();
+                console.log(rTwo)
+                // increments of .1
+                rTwo.color.setRGB(0,.1,0);
+                console.log(rTwo)
+                r[0].material=rTwo;
+                // r[0].material.color.copy(new THREE.Color("#FF0000"))
                 let textureHeight = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalHeight;
                 let textureWidth = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalWidth;
                 document.getElementById("logoWidth").innerHTML = `${textureWidth / 8}px `;
@@ -293,7 +288,19 @@ if (document.querySelector(".toolListItem")) {
         })
     })
 }
-
+   // Event listeners for each logo placement button
+   document.getElementById("left-sleeve-placement").addEventListener('click', () => {
+    console.log("left")
+});
+document.getElementById("right-sleeve-placement").addEventListener('click', () => {
+    console.log("right")
+});
+document.getElementById("back-placement").addEventListener('click', () => {
+    console.log("back")
+});
+document.getElementById("front-placement").addEventListener('click', () => {
+    console.log("front")
+});
 /**
  * Sizes
  */
