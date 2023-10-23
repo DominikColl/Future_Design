@@ -124,35 +124,7 @@ scene.add(directionalLightThree)
 document.getElementById("colorChoice").addEventListener('click', () => {
     document.querySelector(".colorChoiceList").classList.toggle('hide')
 });
-if (document.querySelector(".colorChoiceListItem")) {
-    let t = document.querySelectorAll(".colorChoiceListItem")
-    t.forEach((item) => {
-        item.addEventListener("click", (e) => {
-            t.forEach((item) => {
-                item.classList.remove("active")
-            })
-            e.target.classList.add("active")
-            console.log(e.target.id)
-            let target = e.target.id;
-            if (target === 'yellow') {
-                ambientLight.color.setHex(0xFCBA04)
-                directionalLight.color.setHex(0xFCBA04)
-            } else if (target === 'red') {
-                ambientLight.color.setHex(0xA50104)
-                directionalLight.color.setHex(0xA50104)
-            } else if (target === 'rosewood') {
-                ambientLight.color.setHex(0x590004)
-                directionalLight.color.setHex(0x590004)
-            } else if (target === 'blackBean') {
-                ambientLight.color.setHex(0x250001)
-                directionalLight.color.setHex(0x250001)
-            } else if (target === 'whiteSmoke') {
-                ambientLight.color.setHex(0xF3F3F3)
-                directionalLight.color.setHex(0xF3F3F3)
-            }
-        })
-    })
-}
+
 // Logo Upload
 let logoUpload;
 document.getElementById("logoImg").addEventListener('change', (e) => {
@@ -204,12 +176,53 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
          
         }
         gltfLoader.load('/models/untitled.gltf', (gltf) => {
+            var color = { r: 0.9, g: 0.9, b: 0.9 };
+            var colorFolder = gui.addFolder('RGB Color');
+colorFolder.add(color, 'r', 0, 1).step(0.01).name('Red').onChange(updateColor);
+colorFolder.add(color, 'g', 0, 1).step(0.01).name('Green').onChange(updateColor);
+colorFolder.add(color, 'b', 0, 1).step(0.01).name('Blue').onChange(updateColor);
+function updateColor() {
+    r[0].material.color.setRGB(color.r, color.g, color.b);
+}
             model = gltf.scene;
             model.position.y = -0.4;
             model.position.z = 0.4;
             model.rotation.x = -0.23;
             // before loading texture call function to throw white background on image 
             const textureLoader = new THREE.TextureLoader();
+            let r = model.children[0].children[0].children[0].children[0].children;
+            if (document.querySelector(".colorChoiceListItem")) {
+                let t = document.querySelectorAll(".colorChoiceListItem")
+                t.forEach((item) => {
+                    item.addEventListener("click", (e) => {
+                        t.forEach((item) => {
+                            item.classList.remove("active")
+                        })
+                        e.target.classList.add("active")
+                        console.log(e.target.id)
+                        let target = e.target.id;
+                        if (target === 'yellow') {
+                            console.log('wooo')
+                            r[0].material.color.setRGB(.2,.2,0);
+                            // ambientLight.color.setHex(0xFCBA04)
+                            // directionalLight.color.setHex(0xFCBA04)
+                        } else if (target === 'red') {
+                            // ambientLight.color.setHex(0xA50104)
+                            // directionalLight.color.setHex(0xA50104)
+                        } else if (target === 'rosewood') {
+                            // ambientLight.color.setHex(0x590004)
+                            // directionalLight.color.setHex(0x590004)
+                        } else if (target === 'blackBean') {
+                            // ambientLight.color.setHex(0x250001)
+                            // directionalLight.color.setHex(0x250001)
+                        } else if (target === 'whiteSmoke') {
+                            r[0].material.color.setRGB(.17, .17, .17);
+                            // ambientLight.color.setHex(0xF3F3F3)
+                            // directionalLight.color.setHex(0xF3F3F3)
+                        }
+                    })
+                })
+            }
             textureLoader.load(document.querySelector("#img").src, (loadedTexture) => {
                 loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
                 loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
@@ -217,7 +230,6 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 const textureScale = new THREE.Vector2(8, 8);
                 const textureOffset = new THREE.Vector2(1.008, -1.034);
 
-                let r = model.children[0].children[0].children[0].children[0].children;
                 console.log(r)
                 r[0].material.map = loadedTexture;
                 r[0].material.map.repeat = textureScale;
@@ -225,7 +237,7 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 let rTwo=r[0].material.clone();
                 console.log(rTwo)
                 // increments of .1 rgb
-                rTwo.color.setRGB(.2,.2,0);
+                // rTwo.color.setRGB(.2,.2,0);
                 console.log(rTwo)
                 r[0].material=rTwo;
                 // r[0].material.color.copy(new THREE.Color("#FF0000"))
