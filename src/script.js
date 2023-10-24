@@ -58,33 +58,41 @@ const modelPosition = {
     z: 0.7
 };
 let layer;
+
 // Load the 3D model
-// Create controls for moving the model's position in dat.gui
-function moveScale() {
-    document.querySelectorAll(".scaleTool").forEach(item => {
-        item.addEventListener("click", (e) => {
-            console.log(model.children[0].children[0].children[0].children[0].children[0].material.map.repeat);
-            if (e.target.id == "plusWidth") {
-                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x--
-                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y--
-            } else if (e.target.id == "minusWidth") {
-                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y++
-                model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x++
-            } else if (e.target.id == "plusHeight") {
+// Create controls for changing the model's size in dat.gui
+let slider = document.getElementById('sizeRange');
+slider.addEventListener('input', (e) => {
+    console.log(e.target.value);
+    model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x = e.target.value * 0.14;
+    model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y = e.target.value * 0.14;
+    console.log(model.children[0].children[0].children[0].children[0].children[0].material.map.repeat);
+})
 
-            } else if (e.target.id == "minusHeight") {
+// function moveScale() {
+//     document.querySelectorAll(".sizeRange").forEach(item => {
+//         item.addEventListener("click", (e) => {
+//             console.log(model.children[0].children[0].children[0].children[0].children[0].material.map.repeat);
+//             if (e.target.id == "plusWidth") {
+//                 model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x--
+//                 model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y--
+//             } else if (e.target.id == "minusWidth") {
+//                 model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y++
+//                 model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x++
+//             } else if (e.target.id == "plusHeight") {
 
-            }
-        })
-    })
-}
+//             } else if (e.target.id == "minusHeight") {
+
+//             }
+//         })
+//     })
+// }
 // 
 gltfLoader.load('/models/untitled.gltf', (gltf) => {
     model = gltf.scene;
     model.position.y = -0.4;
     model.position.z = 0.4;
     model.rotation.x = -0.23;
-
     scene.add(model);
 })
 
@@ -124,7 +132,35 @@ scene.add(directionalLightThree)
 document.getElementById("colorChoice").addEventListener('click', () => {
     document.querySelector(".colorChoiceList").classList.toggle('hide')
 });
-
+if (document.querySelector(".colorChoiceListItem")) {
+    let t = document.querySelectorAll(".colorChoiceListItem")
+    t.forEach((item) => {
+        item.addEventListener("click", (e) => {
+            t.forEach((item) => {
+                item.classList.remove("active")
+            })
+            e.target.classList.add("active")
+            console.log(e.target.id)
+            let target = e.target.id;
+            if (target === 'yellow') {
+                ambientLight.color.setHex(0xFCBA04)
+                directionalLight.color.setHex(0xFCBA04)
+            } else if (target === 'red') {
+                ambientLight.color.setHex(0xA50104)
+                directionalLight.color.setHex(0xA50104)
+            } else if (target === 'rosewood') {
+                ambientLight.color.setHex(0x590004)
+                directionalLight.color.setHex(0x590004)
+            } else if (target === 'blackBean') {
+                ambientLight.color.setHex(0x250001)
+                directionalLight.color.setHex(0x250001)
+            } else if (target === 'whiteSmoke') {
+                ambientLight.color.setHex(0xF3F3F3)
+                directionalLight.color.setHex(0xF3F3F3)
+            }
+        })
+    })
+}
 // Logo Upload
 let logoUpload;
 document.getElementById("logoImg").addEventListener('change', (e) => {
@@ -171,58 +207,30 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
             document.getElementById("logoPlacementButton").addEventListener('click', () => {
                 console.log()
                 document.querySelector(".logoPlacement").classList.toggle('hide')
+                console.log(model.children[0].children[0].children[0].children[0].children[0].material);
             });
 
-         
+            // Event listeners for each logo placement button
+            document.getElementById("left-sleeve-placement").addEventListener('click', () => {
+                console.log("left")
+            });
+            document.getElementById("right-sleeve-placement").addEventListener('click', () => {
+                console.log("right")
+            });
+            document.getElementById("back-placement").addEventListener('click', () => {
+                console.log("back")
+            });
+            document.getElementById("front-placement").addEventListener('click', () => {
+                console.log("front")
+            });
         }
         gltfLoader.load('/models/untitled.gltf', (gltf) => {
-            var color = { r: 0.9, g: 0.9, b: 0.9 };
-            var colorFolder = gui.addFolder('RGB Color');
-colorFolder.add(color, 'r', 0, 1).step(0.01).name('Red').onChange(updateColor);
-colorFolder.add(color, 'g', 0, 1).step(0.01).name('Green').onChange(updateColor);
-colorFolder.add(color, 'b', 0, 1).step(0.01).name('Blue').onChange(updateColor);
-function updateColor() {
-    r[0].material.color.setRGB(color.r, color.g, color.b);
-}
             model = gltf.scene;
             model.position.y = -0.4;
             model.position.z = 0.4;
             model.rotation.x = -0.23;
             // before loading texture call function to throw white background on image 
             const textureLoader = new THREE.TextureLoader();
-            let r = model.children[0].children[0].children[0].children[0].children;
-            if (document.querySelector(".colorChoiceListItem")) {
-                let t = document.querySelectorAll(".colorChoiceListItem")
-                t.forEach((item) => {
-                    item.addEventListener("click", (e) => {
-                        t.forEach((item) => {
-                            item.classList.remove("active")
-                        })
-                        e.target.classList.add("active")
-                        console.log(e.target.id)
-                        let target = e.target.id;
-                        if (target === 'yellow') {
-                            console.log('wooo')
-                            r[0].material.color.setRGB(.2,.2,0);
-                            // ambientLight.color.setHex(0xFCBA04)
-                            // directionalLight.color.setHex(0xFCBA04)
-                        } else if (target === 'red') {
-                            // ambientLight.color.setHex(0xA50104)
-                            // directionalLight.color.setHex(0xA50104)
-                        } else if (target === 'rosewood') {
-                            // ambientLight.color.setHex(0x590004)
-                            // directionalLight.color.setHex(0x590004)
-                        } else if (target === 'blackBean') {
-                            // ambientLight.color.setHex(0x250001)
-                            // directionalLight.color.setHex(0x250001)
-                        } else if (target === 'whiteSmoke') {
-                            r[0].material.color.setRGB(.17, .17, .17);
-                            // ambientLight.color.setHex(0xF3F3F3)
-                            // directionalLight.color.setHex(0xF3F3F3)
-                        }
-                    })
-                })
-            }
             textureLoader.load(document.querySelector("#img").src, (loadedTexture) => {
                 loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
                 loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
@@ -230,21 +238,16 @@ function updateColor() {
                 const textureScale = new THREE.Vector2(8, 8);
                 const textureOffset = new THREE.Vector2(1.008, -1.034);
 
+                let r = model.children[0].children[0].children[0].children[0].children;
                 console.log(r)
                 r[0].material.map = loadedTexture;
                 r[0].material.map.repeat = textureScale;
                 r[0].material.map.offset = textureOffset;
-                let rTwo=r[0].material.clone();
-                console.log(rTwo)
-                // increments of .1 rgb
-                // rTwo.color.setRGB(.2,.2,0);
-                console.log(rTwo)
-                r[0].material=rTwo;
-                // r[0].material.color.copy(new THREE.Color("#FF0000"))
+
                 let textureHeight = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalHeight;
                 let textureWidth = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalWidth;
-                document.getElementById("logoWidth").innerHTML = `${textureWidth / 8}px `;
-                moveScale();
+                document.getElementById("sizeRange").innerHTML = `${textureWidth / 8}px `;
+                //moveScale();
                 scene.add(model);
             }, undefined, (error) => {
                 console.error('An error occurred while loading the texture:', error);
@@ -254,7 +257,7 @@ function updateColor() {
     fr.readAsDataURL(files[0]);
 });
 
-// Tools button
+// Positioning controls
 document.getElementById("toolChoice").addEventListener('click', () => {
     console.log()
     document.querySelector(".toolList").classList.toggle('hide')
@@ -300,19 +303,7 @@ if (document.querySelector(".toolListItem")) {
         })
     })
 }
-   // Event listeners for each logo placement button
-   document.getElementById("left-sleeve-placement").addEventListener('click', () => {
-    console.log("left")
-});
-document.getElementById("right-sleeve-placement").addEventListener('click', () => {
-    console.log("right")
-});
-document.getElementById("back-placement").addEventListener('click', () => {
-    console.log("back")
-});
-document.getElementById("front-placement").addEventListener('click', () => {
-    console.log("front")
-});
+
 /**
  * Sizes
  */
