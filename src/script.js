@@ -260,7 +260,8 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
 // Positioning controls
 document.getElementById("toolChoice").addEventListener('click', () => {
     console.log()
-    document.querySelector(".toolList").classList.toggle('hide')
+    document.querySelector(".toolListSlider").classList.toggle('hide')
+    document.querySelector(".toolListHorizontal").classList.toggle('hide')
 });
 document.getElementById("logoChoice").addEventListener('click', () => {
     console.log()
@@ -271,8 +272,8 @@ document.getElementById("sizeChoice").addEventListener('click', () => {
     console.log()
     document.querySelector(".sizeChoiceList").classList.toggle('hide')
 });
-if (document.querySelector(".toolListItem")) {
-    let t = document.querySelectorAll(".toolListItem")
+if (document.querySelector(".toolListItem2")) {
+    let t = document.querySelectorAll(".toolListItem2")
     t.forEach((item) => {
         item.addEventListener("click", (e) => {
             t.forEach((item) => {

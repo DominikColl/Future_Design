@@ -53,7 +53,20 @@ body {
     margin-top:1rem;
     padding-left: 1px;
 }
-.toolListItem {
+.toolListHorizontal {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+}
+.toolListItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.toolListItem2 {
     width:25px;
     height:25px;
     border-radius: 50%;
@@ -65,7 +78,9 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    border: 2px solid black;
+    border: 3px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .sizeButton {
@@ -130,8 +145,16 @@ canvas {
         opacity: 0.7;
         -webkit-transition: .2s;
         transition: opacity .2s;
-        cursor:pointer
+        cursor:pointer;
+        display:inline-block;
 }
+.sizeChoiceListItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0;
+}
+
 
 
 /* breakpoints */
