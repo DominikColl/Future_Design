@@ -61,8 +61,8 @@ let layer;
 
 // Load the 3D model
 // Create controls for changing the model's size in dat.gui
-let slider = document.getElementById('sizeRange');
-slider.addEventListener('input', (e) => {
+let sizeSlider = document.getElementById('sizeRange');
+sizeSlider.addEventListener('input', (e) => {
     console.log(e.target.value);
     model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.x = e.target.value * 0.14;
     model.children[0].children[0].children[0].children[0].children[0].material.map.repeat.y = e.target.value * 0.14;
@@ -257,7 +257,7 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
     fr.readAsDataURL(files[0]);
 });
 
-// Positioning controls
+// Un-hide buttons
 document.getElementById("toolChoice").addEventListener('click', () => {
     console.log()
     document.querySelector(".toolListSlider").classList.toggle('hide')
@@ -272,6 +272,8 @@ document.getElementById("sizeChoice").addEventListener('click', () => {
     console.log()
     document.querySelector(".sizeChoiceList").classList.toggle('hide')
 });
+
+// Vertical positioning controls with up and down buttons.
 if (document.querySelector(".toolListItem2")) {
     let t = document.querySelectorAll(".toolListItem2")
     t.forEach((item) => {
@@ -282,16 +284,17 @@ if (document.querySelector(".toolListItem2")) {
             e.target.classList.add("toolActive")
             // console.log(e.target.id)
             let target = e.target.id;
-            if (target === 'left') {
-                // console.log(model);
-                let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
-                textureX += .1;
-                model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
-            } else if (target === 'right') {
-                let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
-                textureX -= .1;
-                model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
-            } else if (target === 'up') {
+            // if (target === 'left') {
+            //     // console.log(model);
+            //     let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
+            //     textureX += .1;
+            //     model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
+            // } else if (target === 'right') {
+            //     let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
+            //     textureX -= .1;
+            //     model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
+            // } else 
+            if (target === 'up') {
                 let textureY = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.y;
                 textureY -= .1;
                 model.children[0].children[0].children[0].children[0].children[0].material.map.offset.y = textureY;
@@ -304,6 +307,14 @@ if (document.querySelector(".toolListItem2")) {
         })
     })
 }
+
+// Horizontal positioning controls 
+let posSlider = document.getElementById('logo-x-y-range');
+posSlider.addEventListener('input', (e) => {
+    console.log(e.target.value);
+    model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = e.target.value;
+    console.log(model.children[0].children[0].children[0].children[0].children[0].material);
+})
 
 /**
  * Sizes
