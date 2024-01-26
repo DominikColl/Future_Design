@@ -48,6 +48,7 @@ gltfLoader.setDRACOLoader(dracoLoader)
 
 let mixer = null
 let model;
+let Tmodel;
 gltfLoader.setDRACOLoader(dracoLoader);
 // 
 
@@ -89,7 +90,7 @@ gltfLoader.load('/models/untitled.gltf', (gltf) => {
 })
 
 gltfLoader.load('/models/base.gltf', (gltf) => {
-    let Tmodel = gltf.scene;
+    Tmodel = gltf.scene;
     Tmodel.position.y = -0.4;
     Tmodel.position.z = 0.4;
     Tmodel.rotation.x = -0.23;
@@ -100,25 +101,41 @@ gltfLoader.load('/models/base.gltf', (gltf) => {
 /**
  * Lights
  */
-const ambientLight = new THREE.AmbientLight(0xFFFFFF, 3.0)
+const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.1)
 scene.add(ambientLight)
 
-const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1.3)
+const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.2)
 
 directionalLight.position.set(0, 2, 0)
 scene.add(directionalLight)
 
 
-const directionalLightTwo = new THREE.DirectionalLight(0xFFFFFF, 1.3)
+const directionalLightTwo = new THREE.DirectionalLight(0xFFFFFF, 0.71)
 
 directionalLightTwo.position.set(-2, 2, 0)
 scene.add(directionalLightTwo)
 
-const directionalLightThree = new THREE.DirectionalLight(0xFFFFFF, 1.3)
+const directionalLightThree = new THREE.DirectionalLight(0xFFFFFF, 0.85)
 
 directionalLightThree.position.set(2, 2, 0)
 scene.add(directionalLightThree)
 
+// 
+function addDirectionalLightControls(light, folderName) {
+    const folder = gui.addFolder(folderName);
+    folder.add(light, 'intensity', 0, 10);
+    folder.addColor(light, 'color');
+
+}
+
+addDirectionalLightControls(ambientLight, 'tester')
+addDirectionalLightControls(directionalLight, 'tester0')
+addDirectionalLightControls(directionalLightTwo, 'tester1')
+addDirectionalLightControls(directionalLightThree, 'tester2')
+
+
+
+// 
 
 // Color choice button
 document.getElementById("colorChoice").addEventListener('click', () => {
@@ -149,11 +166,11 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
             ctx.drawImage(inputImage, 0, 0, desiredWidth, desiredHeight);
             const resizedImage = canvas.toDataURL('image/jpeg'); // You can specify the desired image format
 
-            mergeImages([{src:'/models/whiteBackground.PNG',x:0,y:0}, {src:resizedImage,x:25,y:25}], {
+            mergeImages([{ src: '/models/whiteBackground.PNG', x: 0, y: 0 }, { src: resizedImage, x: 25, y: 25 }], {
                 width: 100,
                 height: 100
             })
-            .then(b64 => document.querySelector("#img").src = b64);
+                .then(b64 => document.querySelector("#img").src = b64);
 
             // Use the resizedImage for applying to the 3D model
             const textureLoader = new THREE.TextureLoader();
@@ -173,56 +190,27 @@ document.getElementById("logoImg").addEventListener('change', (e) => {
                 document.querySelector(".logoPlacement").classList.toggle('hide')
             });
 
-         
+
         }
         gltfLoader.load('/models/untitled.gltf', (gltf) => {
             var color = { r: 0.9, g: 0.9, b: 0.9 };
             var colorFolder = gui.addFolder('RGB Color');
-colorFolder.add(color, 'r', 0, 1).step(0.01).name('Red').onChange(updateColor);
-colorFolder.add(color, 'g', 0, 1).step(0.01).name('Green').onChange(updateColor);
-colorFolder.add(color, 'b', 0, 1).step(0.01).name('Blue').onChange(updateColor);
-function updateColor() {
-    r[0].material.color.setRGB(color.r, color.g, color.b);
-}
+            colorFolder.add(color, 'r', 0, 1).step(0.01).name('Red').onChange(updateColor);
+            colorFolder.add(color, 'g', 0, 1).step(0.01).name('Green').onChange(updateColor);
+            colorFolder.add(color, 'b', 0, 1).step(0.01).name('Blue').onChange(updateColor);
+            function updateColor() {
+                r[0].material.color.setRGB(color.r, color.g, color.b);
+            }
             model = gltf.scene;
             model.position.y = -0.4;
             model.position.z = 0.4;
             model.rotation.x = -0.23;
             // before loading texture call function to throw white background on image 
             const textureLoader = new THREE.TextureLoader();
+            console.log(model)
             let r = model.children[0].children[0].children[0].children[0].children;
-            if (document.querySelector(".colorChoiceListItem")) {
-                let t = document.querySelectorAll(".colorChoiceListItem")
-                t.forEach((item) => {
-                    item.addEventListener("click", (e) => {
-                        t.forEach((item) => {
-                            item.classList.remove("active")
-                        })
-                        e.target.classList.add("active")
-                        console.log(e.target.id)
-                        let target = e.target.id;
-                        if (target === 'yellow') {
-                            console.log('wooo')
-                            r[0].material.color.setRGB(.2,.2,0);
-                            // ambientLight.color.setHex(0xFCBA04)
-                            // directionalLight.color.setHex(0xFCBA04)
-                        } else if (target === 'red') {
-                            // ambientLight.color.setHex(0xA50104)
-                            // directionalLight.color.setHex(0xA50104)
-                        } else if (target === 'rosewood') {
-                            // ambientLight.color.setHex(0x590004)
-                            // directionalLight.color.setHex(0x590004)
-                        } else if (target === 'blackBean') {
-                            // ambientLight.color.setHex(0x250001)
-                            // directionalLight.color.setHex(0x250001)
-                        } else if (target === 'whiteSmoke') {
-                            r[0].material.color.setRGB(.17, .17, .17);
-                            // ambientLight.color.setHex(0xF3F3F3)
-                            // directionalLight.color.setHex(0xF3F3F3)
-                        }
-                    })
-                })
-            }
+            console.log(r)
+
             textureLoader.load(document.querySelector("#img").src, (loadedTexture) => {
                 loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
                 loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
@@ -234,12 +222,12 @@ function updateColor() {
                 r[0].material.map = loadedTexture;
                 r[0].material.map.repeat = textureScale;
                 r[0].material.map.offset = textureOffset;
-                let rTwo=r[0].material.clone();
+                let rTwo = r[0].material.clone();
                 console.log(rTwo)
                 // increments of .1 rgb
                 // rTwo.color.setRGB(.2,.2,0);
                 console.log(rTwo)
-                r[0].material=rTwo;
+                r[0].material = rTwo;
                 // r[0].material.color.copy(new THREE.Color("#FF0000"))
                 let textureHeight = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalHeight;
                 let textureWidth = model.children[0].children[0].children[0].children[0].children[0].material.map.source.data.naturalWidth;
@@ -279,7 +267,6 @@ if (document.querySelector(".toolListItem")) {
             // console.log(e.target.id)
             let target = e.target.id;
             if (target === 'left') {
-                // console.log(model);
                 let textureX = model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x;
                 textureX += .1;
                 model.children[0].children[0].children[0].children[0].children[0].material.map.offset.x = textureX;
@@ -300,8 +287,45 @@ if (document.querySelector(".toolListItem")) {
         })
     })
 }
-   // Event listeners for each logo placement button
-   document.getElementById("left-sleeve-placement").addEventListener('click', () => {
+// 
+let t = document.querySelectorAll(".colorChoiceListItem");
+t.forEach((item) => {
+    item.addEventListener("click", (e) => {
+        // Remove 'active' class from all items
+        t.forEach((item) => {
+            item.classList.remove("active");
+        });
+        // Add 'active' class to the clicked item
+        e.target.classList.add("active");
+        console.log(e.target.id);
+        let targetColor = e.target.id;
+
+        // Assuming the path to your mesh material is correct
+        let meshMaterial = model.children[0].children[0].children[0].children[0].children[0].material;
+        let baseMaterial = Tmodel.children[0].children[0].children[0].children[0].children[0].material
+        // Change the color based on the selected option
+        if (targetColor === 'yellow') {
+            console.log(Tmodel)
+            baseMaterial.color.set(0xFFFF00);
+            meshMaterial.color.set(0xFFFF00); // Hex for yellow
+        } else if (targetColor === 'red') {
+            baseMaterial.color.set(0xFF0000);
+            meshMaterial.color.set(0xFF0000); // Hex for red
+        } else if (targetColor === 'rosewood') {
+            baseMaterial.color.set(0x65000B);
+            meshMaterial.color.set(0x65000B); // Hex for rosewood, adjust as needed
+        } else if (targetColor === 'blackBean') {
+            baseMaterial.color.set(0x3D0C02);
+            meshMaterial.color.set(0x3D0C02); // Hex for black bean, adjust as needed
+        } else if (targetColor === 'whiteSmoke') {
+            baseMaterial.color.set(0xF5F5F5);
+            meshMaterial.color.set(0xF5F5F5); // Hex for white smoke
+        }
+    });
+});
+
+// Event listeners for each logo placement button
+document.getElementById("left-sleeve-placement").addEventListener('click', () => {
     console.log("left")
 });
 document.getElementById("right-sleeve-placement").addEventListener('click', () => {
